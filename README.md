@@ -3,7 +3,7 @@
 <h2>Operational GIS Network Analysis Using Open-Source Geospatial Tools</h2>
 
 <p>
-  <img src="outputs/final_operational_map_layout.png" alt="Final QGIS Operational Map Layout" width="100%">
+  <img src="outputs/screenshots/final_operational_map_layout.png" alt="Final QGIS Operational Map Layout" width="100%">
 </p>
 
 <hr>
@@ -217,7 +217,7 @@ This provides the routing foundation for emergency response analysis.
 </p>
 
 <p>
-  <img src="outputs/transportation_network_map.png" alt="Transportation Network Map Placeholder" width="100%">
+  <img src="outputs/screenshots/transportation_network_map.png" alt="Transportation Network Map Placeholder" width="100%">
 </p>
 
 <h3>2. Utility Depot Simulation</h3>
@@ -227,7 +227,7 @@ Simulated utility depot locations are created as operational response origins. T
 </p>
 
 <p>
-  <img src="outputs/utility_depots_map.png" alt="Utility Depot Map Placeholder" width="100%">
+  <img src="outputs/screenshots/utility_depots_map.png" alt="Utility Depot Map Placeholder" width="100%">
 </p>
 
 <h3>3. Outage Event Simulation</h3>
@@ -241,7 +241,7 @@ These outage locations serve as routing destinations.
 </p>
 
 <p>
-  <img src="outputs/outage_events_map.png" alt="Outage Events Map Placeholder" width="100%">
+  <img src="outputs/screenshots/outage_events_map.png" alt="Outage Events Map Placeholder" width="100%">
 </p>
 
 <h3>4. Emergency Routing Analysis</h3>
@@ -255,7 +255,7 @@ Each outage is assigned to the depot with the shortest network-based route.
 </p>
 
 <p>
-  <img src="outputs/emergency_response_routes_map.png" alt="Emergency Response Routes Map Placeholder" width="100%">
+  <img src="outputs/screenshots/emergency_response_routes_map.png" alt="Emergency Response Routes Map Placeholder" width="100%">
 </p>
 
 <h3>5. Service Coverage Analysis</h3>
@@ -269,7 +269,7 @@ This analysis helps identify which outage locations fall within approximate emer
 </p>
 
 <p>
-  <img src="outputs/service_coverage_map.png" alt="Service Coverage Map Placeholder" width="100%">
+  <img src="outputs/screenshots/service_coverage_map.png" alt="Service Coverage Map Placeholder" width="100%">
 </p>
 
 <h3>6. Infrastructure Impact Analysis</h3>
@@ -283,7 +283,7 @@ This step demonstrates how GIS can support infrastructure impact review and emer
 </p>
 
 <p>
-  <img src="outputs/infrastructure_impact_map.png" alt="Infrastructure Impact Map Placeholder" width="100%">
+  <img src="outputs/screenshots/infrastructure_impact_map.png" alt="Infrastructure Impact Map Placeholder" width="100%">
 </p>
 
 <h3>7. Spatial SQL Analysis</h3>
@@ -323,7 +323,7 @@ The web map includes layer controls, popups, operational routes, utility depots,
 </p>
 
 <p>
-  <img src="outputs/leaflet_webmap_screenshot.png" alt="Leaflet Web Map Screenshot Placeholder" width="100%">
+  <img src="outputs/screenshots/leaflet_webmap_screenshot.png" alt="Leaflet Web Map Screenshot Placeholder" width="100%">
 </p>
 
 <hr>
@@ -412,7 +412,7 @@ Recommended final layout export:
 </p>
 
 <pre>
-outputs/final_operational_map_layout.png
+outputs/screenshots/final_operational_map_layout.png
 </pre>
 
 <hr>
