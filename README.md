@@ -3,7 +3,7 @@
 <h2>Operational GIS Network Analysis Using Open-Source Geospatial Tools</h2>
 
 <p>
-  <img src="outputs/screenshots/leaflet_webmap_full_interface.png" alt="Utility Emergency Response Web GIS" width="80%">
+  <img src="outputs/screenshots/leaflet_webmap_full_interface.png" alt="Utility Emergency Response Web GIS" width="100%">
 </p>
 
 <hr>
