@@ -1,0 +1,30 @@
+# Python Virtual Environment
+.venv/
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Temporary Files
+cache/
+
+# QGIS Temporary Files
+*.qgs~
+*.qgz~
+
+# Large Local GIS Data (optional)
+*.gpkg-wal
+*.gpkg-shm
+
+# VS Code
+.vscode/
+
+# Local server cache
+webmap/.DS_Store
+
