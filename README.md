@@ -366,7 +366,7 @@ The web map includes:
 </ul>
 
 <p>
-  <img src="outputs/screenshots/leaflet_webmap_clean.png" alt="Interactive Leaflet Web GIS" width="100%">
+  <img src="outputs/screenshots/leaflet_webmap_full_interface" alt="Interactive Leaflet Web GIS" width="100%">
 </p>
 
 <hr>
