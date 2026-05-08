@@ -3,7 +3,7 @@
 <h2>Operational GIS Network Analysis Using Open-Source Geospatial Tools</h2>
 
 <p>
-  <img src="outputs/screenshots/final_operational_map_layout.png" alt="Final QGIS Operational Map Layout" width="100%">
+  <img src="outputs/screenshots/emergency_response_routes.png" alt="Utility Emergency Response Routing Analysis" width="100%">
 </p>
 
 <hr>
@@ -23,7 +23,7 @@ The main goal is to evaluate how utility response crews may travel from operatio
 </p>
 
 <p>
-This project is designed as a geospatial engineering portfolio case study, not just a static map. It combines Python-based GIS automation, network analysis, spatial database-style storage, spatial SQL analytics, desktop GIS validation, and browser-based web mapping.
+This project is designed as a geospatial engineering portfolio case study, not just a static map. It combines Python-based GIS automation, network analysis, portable spatial storage, spatial SQL analytics, QGIS validation, and browser-based web mapping.
 </p>
 
 <hr>
@@ -41,10 +41,6 @@ During outage events, utility operators need to answer practical spatial questio
   <li>Which road segments are near outage impact zones?</li>
   <li>Where are potential emergency response accessibility gaps?</li>
 </ul>
-
-<p>
-This project models those questions through a reproducible open-source GIS workflow.
-</p>
 
 <hr>
 
@@ -64,7 +60,6 @@ This project models those questions through a reproducible open-source GIS workf
   <li>QGIS validation and cartographic preparation</li>
   <li>GeoJSON export for web GIS</li>
   <li>Leaflet interactive web mapping</li>
-  <li>GitHub-ready reproducible GIS workflow design</li>
 </ul>
 
 <hr>
@@ -80,7 +75,7 @@ NetworkX Shortest-Path Routing
         ↓
 GeoPandas Spatial Processing
         ↓
-Service Coverage and Impact Analysis
+Service Coverage and Infrastructure Impact Analysis
         ↓
 GeoPackage Spatial Storage
         ↓
@@ -98,42 +93,15 @@ Leaflet Interactive Web GIS
 <h2>Technology Stack</h2>
 
 <table>
-  <tr>
-    <th>Component</th>
-    <th>Technology</th>
-  </tr>
-  <tr>
-    <td>Desktop GIS</td>
-    <td>QGIS</td>
-  </tr>
-  <tr>
-    <td>Spatial Analysis</td>
-    <td>Python, GeoPandas, Shapely</td>
-  </tr>
-  <tr>
-    <td>Transportation Network</td>
-    <td>OSMnx, OpenStreetMap</td>
-  </tr>
-  <tr>
-    <td>Routing Engine</td>
-    <td>NetworkX</td>
-  </tr>
-  <tr>
-    <td>Spatial SQL</td>
-    <td>DuckDB Spatial</td>
-  </tr>
-  <tr>
-    <td>Spatial Storage</td>
-    <td>GeoPackage</td>
-  </tr>
-  <tr>
-    <td>Web GIS</td>
-    <td>Leaflet, GeoJSON</td>
-  </tr>
-  <tr>
-    <td>Notebook Environment</td>
-    <td>JupyterLab</td>
-  </tr>
+  <tr><th>Component</th><th>Technology</th></tr>
+  <tr><td>Desktop GIS</td><td>QGIS</td></tr>
+  <tr><td>Spatial Analysis</td><td>Python, GeoPandas, Shapely</td></tr>
+  <tr><td>Transportation Network</td><td>OSMnx, OpenStreetMap</td></tr>
+  <tr><td>Routing Engine</td><td>NetworkX</td></tr>
+  <tr><td>Spatial SQL</td><td>DuckDB Spatial</td></tr>
+  <tr><td>Spatial Storage</td><td>GeoPackage</td></tr>
+  <tr><td>Web GIS</td><td>Leaflet, GeoJSON</td></tr>
+  <tr><td>Notebook Environment</td><td>JupyterLab</td></tr>
 </table>
 
 <hr>
@@ -159,10 +127,6 @@ The drivable road network was downloaded from OpenStreetMap using OSMnx.
 Utility depot locations and outage events are simulated for analytical demonstration purposes. They are not real utility assets or real outage incidents.
 </p>
 
-<p>
-The simulated data supports emergency routing, service coverage analysis, spatial SQL examples, and web GIS visualization.
-</p>
-
 <hr>
 
 <h2>Project Structure</h2>
@@ -171,7 +135,6 @@ The simulated data supports emergency routing, service coverage analysis, spatia
 Utility Emergency Response Routing/
 │
 ├── data/
-│   ├── raw/
 │   └── processed/
 │       ├── roads.gpkg
 │       ├── utility_depots.gpkg
@@ -190,13 +153,15 @@ Utility Emergency Response Routing/
 │       └── utility_service_areas.geojson
 │
 ├── outputs/
-│   └── final_operational_map_layout.png
+│   └── screenshots/
+│       ├── transportation_road_network.png
+│       ├── utility_depot_locations.png
+│       ├── depot_and_outage_locations.png
+│       ├── emergency_response_routes.png
+│       ├── service_coverage_analysis.png
+│       ├── infrastructure_impact_analysis.png
+│       └── leaflet_webmap.png.png
 │
-├── qgis/
-│   └── utility_emergency_response_routing.qgz
-│
-├── scripts/
-├── sql/
 ├── README.md
 ├── requirements.txt
 └── .gitignore
@@ -213,11 +178,7 @@ The project begins by downloading the Washington, DC drivable road network using
 </p>
 
 <p>
-This provides the routing foundation for emergency response analysis.
-</p>
-
-<p>
-  <img src="outputs/screenshots/transportation_network_map.png" alt="Transportation Network Map Placeholder" width="100%">
+  <img src="outputs/screenshots/transportation_road_network.png" alt="Washington DC Transportation Road Network" width="100%">
 </p>
 
 <h3>2. Utility Depot Simulation</h3>
@@ -227,7 +188,7 @@ Simulated utility depot locations are created as operational response origins. T
 </p>
 
 <p>
-  <img src="outputs/screenshots/utility_depots_map.png" alt="Utility Depot Map Placeholder" width="100%">
+  <img src="outputs/screenshots/utility_depot_locations.png" alt="Simulated Utility Emergency Response Depots" width="100%">
 </p>
 
 <h3>3. Outage Event Simulation</h3>
@@ -237,11 +198,7 @@ Simulated outage events are created across Washington, DC. Each outage includes 
 </p>
 
 <p>
-These outage locations serve as routing destinations.
-</p>
-
-<p>
-  <img src="outputs/screenshots/outage_events_map.png" alt="Outage Events Map Placeholder" width="100%">
+  <img src="outputs/screenshots/depot_and_outage_locations.png" alt="Utility Depot and Outage Locations" width="100%">
 </p>
 
 <h3>4. Emergency Routing Analysis</h3>
@@ -255,7 +212,7 @@ Each outage is assigned to the depot with the shortest network-based route.
 </p>
 
 <p>
-  <img src="outputs/screenshots/emergency_response_routes_map.png" alt="Emergency Response Routes Map Placeholder" width="100%">
+  <img src="outputs/screenshots/emergency_response_routes.png" alt="Utility Emergency Response Routing Analysis" width="100%">
 </p>
 
 <h3>5. Service Coverage Analysis</h3>
@@ -265,11 +222,7 @@ Approximate service coverage zones are generated around utility depots to evalua
 </p>
 
 <p>
-This analysis helps identify which outage locations fall within approximate emergency response coverage.
-</p>
-
-<p>
-  <img src="outputs/screenshots/service_coverage_map.png" alt="Service Coverage Map Placeholder" width="100%">
+  <img src="outputs/screenshots/service_coverage_analysis.png" alt="Utility Emergency Response Service Coverage" width="100%">
 </p>
 
 <h3>6. Infrastructure Impact Analysis</h3>
@@ -279,11 +232,7 @@ Outage impact zones are generated around outage events, and nearby road segments
 </p>
 
 <p>
-This step demonstrates how GIS can support infrastructure impact review and emergency access planning.
-</p>
-
-<p>
-  <img src="outputs/screenshots/infrastructure_impact_map.png" alt="Infrastructure Impact Map Placeholder" width="100%">
+  <img src="outputs/screenshots/infrastructure_impact_analysis.png" alt="Transportation Infrastructure Near Outage Events" width="100%">
 </p>
 
 <h3>7. Spatial SQL Analysis</h3>
@@ -291,17 +240,6 @@ This step demonstrates how GIS can support infrastructure impact review and emer
 <p>
 The project uses DuckDB Spatial to query GeoPackage layers directly using SQL. This provides a lightweight alternative to a full PostGIS server while preserving spatial SQL capabilities.
 </p>
-
-<p>
-Example spatial SQL tasks include:
-</p>
-
-<ul>
-  <li>validating layer feature counts</li>
-  <li>reviewing route distance metrics</li>
-  <li>calculating average response distance</li>
-  <li>identifying outages within service areas</li>
-</ul>
 
 <pre>
 SELECT
@@ -319,11 +257,7 @@ Final operational layers are exported to GeoJSON and displayed in an interactive
 </p>
 
 <p>
-The web map includes layer controls, popups, operational routes, utility depots, outage events, service coverage areas, and road network context.
-</p>
-
-<p>
-  <img src="outputs/screenshots/leaflet_webmap_screenshot.png" alt="Leaflet Web Map Screenshot Placeholder" width="100%">
+  <img src="outputs/screenshots/leaflet_webmap.png.png" alt="Leaflet Interactive Web Map" width="100%">
 </p>
 
 <hr>
@@ -355,20 +289,6 @@ Then open:
 http://localhost:8000
 </pre>
 
-<p>
-The map includes:
-</p>
-
-<ul>
-  <li>utility depots</li>
-  <li>simulated outage events</li>
-  <li>emergency response routes</li>
-  <li>service coverage areas</li>
-  <li>road network context</li>
-  <li>interactive popups</li>
-  <li>layer controls</li>
-</ul>
-
 <hr>
 
 <h2>QGIS Workflow</h2>
@@ -397,22 +317,6 @@ Recommended QGIS input:
 
 <pre>
 data/processed/utility_emergency_response_routing.gpkg
-</pre>
-
-<p>
-Recommended QGIS project file:
-</p>
-
-<pre>
-qgis/utility_emergency_response_routing.qgz
-</pre>
-
-<p>
-Recommended final layout export:
-</p>
-
-<pre>
-outputs/screenshots/final_operational_map_layout.png
 </pre>
 
 <hr>
