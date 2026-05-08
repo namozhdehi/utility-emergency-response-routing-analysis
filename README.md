@@ -3,7 +3,7 @@
 <h2>Operational GIS Network Analysis Using Open-Source Geospatial Tools</h2>
 
 <p>
-  <img src="outputs/screenshots/leaflet_webmap_full_interface.png" alt="Utility Emergency Response Web GIS" width="100%">
+  <img src="outputs/screenshots/leaflet_webmap_full_interface.png" alt="Utility Emergency Response Web GIS" width="80%">
 </p>
 
 <hr>
@@ -229,7 +229,7 @@ The road network provides the routing foundation for all emergency response anal
 </p>
 
 <p>
-  <img src="outputs/screenshots/transportation_road_network.png" alt="Washington DC Transportation Road Network" width="100%">
+  <img src="outputs/screenshots/transportation_road_network.png" alt="Washington DC Transportation Road Network" width="80%">
 </p>
 
 <hr>
@@ -245,7 +245,7 @@ These depots represent possible utility dispatch centers across Washington, DC.
 </p>
 
 <p>
-  <img src="outputs/screenshots/utility_depot_locations.png" alt="Utility Depot Locations" width="100%">
+  <img src="outputs/screenshots/utility_depot_locations.png" alt="Utility Depot Locations" width="80%">
 </p>
 
 <hr>
@@ -261,7 +261,7 @@ Each outage includes simulated operational attributes such as priority level and
 </p>
 
 <p>
-  <img src="outputs/screenshots/depot_and_outage_locations.png" alt="Utility Depot and Outage Locations" width="100%">
+  <img src="outputs/screenshots/depot_and_outage_locations.png" alt="Utility Depot and Outage Locations" width="80%">
 </p>
 
 <hr>
@@ -277,7 +277,7 @@ The routing workflow models how utility response crews may travel through the ro
 </p>
 
 <p>
-  <img src="outputs/screenshots/emergency_response_routes.png" alt="Emergency Response Routing Analysis" width="100%">
+  <img src="outputs/screenshots/emergency_response_routes.png" alt="Emergency Response Routing Analysis" width="80%">
 </p>
 
 <hr>
@@ -293,7 +293,7 @@ This analysis helps identify outage locations that may fall outside estimated em
 </p>
 
 <p>
-  <img src="outputs/screenshots/service_coverage_analysis.png" alt="Service Coverage Analysis" width="100%">
+  <img src="outputs/screenshots/service_coverage_analysis.png" alt="Service Coverage Analysis" width="80%">
 </p>
 
 <hr>
@@ -309,7 +309,7 @@ Spatial overlay analysis is used to identify roads intersecting outage impact ar
 </p>
 
 <p>
-  <img src="outputs/screenshots/infrastructure_impact_analysis.png" alt="Infrastructure Impact Analysis" width="100%">
+  <img src="outputs/screenshots/infrastructure_impact_analysis.png" alt="Infrastructure Impact Analysis" width="80%">
 </p>
 
 <hr>
@@ -366,7 +366,7 @@ The web map includes:
 </ul>
 
 <p>
-  <img src="outputs/screenshots/leaflet_webmap_full_interface" alt="Interactive Leaflet Web GIS" width="100%">
+  <img src="outputs/screenshots/leaflet_webmap_full_interface" alt="Interactive Leaflet Web GIS" width="80%">
 </p>
 
 <hr>
@@ -399,7 +399,7 @@ http://localhost:8000
 </pre>
 
 <p>
-  <img src="outputs/screenshots/leaflet_webmap_full_interface.png" alt="Leaflet Web Map Full Interface" width="100%">
+  <img src="outputs/screenshots/leaflet_webmap_full_interface.png" alt="Leaflet Web Map Full Interface" width="80%">
 </p>
 
 <hr>
