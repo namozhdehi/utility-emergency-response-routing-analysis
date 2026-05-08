@@ -399,7 +399,7 @@ http://localhost:8000
 </pre>
 
 <p>
-  <img src="outputs/screenshots/leaflet_webmap_full_interface.png" alt="Leaflet Web Map Full Interface" width="80%">
+  <img src="outputs/screenshots/leaflet_webmap_full_interface.png" alt="Leaflet Web Map Full Interface" width="100%">
 </p>
 
 <hr>
