@@ -1,13 +1,10 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>Utility Emergency Response Routing Analysis</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
     <style>
         html, body {
             height: 100%;
@@ -29,7 +26,7 @@
             padding: 12px 16px;
             border-radius: 6px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-            max-width: 420px;
+            max-width: 440px;
         }
 
         .map-title h2 {
@@ -44,10 +41,61 @@
             line-height: 1.4;
         }
 
+        .info-panel {
+            position: absolute;
+            top: 145px;
+            left: 50px;
+            z-index: 1000;
+            background: white;
+            padding: 12px 14px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            width: 330px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .info-panel h3 {
+            margin: 0 0 8px 0;
+            font-size: 15px;
+        }
+
+        .info-panel label {
+            display: block;
+            margin-top: 8px;
+            margin-bottom: 4px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .info-panel select {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+            font-size: 13px;
+            background: white;
+        }
+
+        .info-panel button {
+            margin-top: 8px;
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            background: #1565C0;
+            color: white;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .info-panel button:hover {
+            background: #0D47A1;
+        }
+
         .legend {
             position: absolute;
             bottom: 25px;
-            left: 25px;
+            right: 25px;
             z-index: 1000;
             background: white;
             padding: 12px 14px;
@@ -55,184 +103,453 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.25);
             font-size: 13px;
             line-height: 1.6;
+            max-width: 220px;
         }
 
         .legend-title {
             font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .legend-section {
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .legend-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .legend-section-title {
+            font-weight: bold;
+            font-size: 11px;
+            color: #666;
             margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .legend-item {
+            margin-bottom: 4px;
+            font-size: 12px;
+        }
+
+        .legend-item:last-child {
+            margin-bottom: 0;
         }
 
         .legend-symbol {
             display: inline-block;
             width: 14px;
             height: 14px;
-            margin-right: 6px;
+            margin-right: 7px;
             vertical-align: middle;
+        }
+
+        .north-arrow {
+            position: absolute;
+            bottom: 115px;
+            left: 25px;
+            z-index: 1000;
+            background: white;
+            padding: 8px;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #333;
+        }
+
+        .compass-container {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .compass-label {
+            font-size: 11px;
+            font-weight: bold;
+            color: #e53935;
+            margin-bottom: 1px;
+            line-height: 1;
+        }
+
+        .compass-arrows {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        .compass-north {
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 16px solid #e53935;
+        }
+
+        .compass-south {
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 16px solid #757575;
+        }
+
+        .scale-bar-container {
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
+            z-index: 1000;
+            background: white;
+            padding: 8px 10px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            border: 1px solid #ccc;
+        }
+
+        .scale-title {
+            font-size: 9px;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 4px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .scale-graphic {
+            height: 6px;
+            width: 100px;
+            background: linear-gradient(to right, #333 0%, #333 50%, white 50%, white 100%);
+            border: 2px solid #333;
+            border-radius: 1px;
+            margin-bottom: 2px;
+        }
+
+        .scale-text {
+            font-size: 10px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+
+        .warning-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2000;
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px 20px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            font-size: 14px;
+            font-weight: bold;
+            color: #856404;
+            display: none;
+        }
+
+        .warning-message.show {
+            display: block;
+            animation: fadeOut 3s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; display: none; }
+        }
+
+        .status-text {
+            color: #555;
+            margin-top: 8px;
         }
     </style>
 </head>
-
 <body>
 
 <div id="map"></div>
 
 <div class="map-title">
     <h2>Utility Emergency Response Routing Analysis</h2>
-    <p>
-        Interactive GIS map showing simulated utility depots, outage events,
-        emergency response routes, and service coverage areas in Washington, DC.
-    </p>
+    <p>Interactive GIS map showing utility depots, outage events, emergency response routes, service coverage areas, and user-defined outage routing.</p>
+</div>
+
+<div class="info-panel">
+    <h3>Dynamic Outage Routing</h3>
+    <p>Click anywhere on the map to simulate a new utility outage. The app will automatically assign the nearest utility depot and generate a road-network response route.</p>
+    <label for="severitySelect">Outage Severity</label>
+    <select id="severitySelect">
+        <option value="Low">Low</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="High">High</option>
+        <option value="Critical">Critical</option>
+    </select>
+    <div id="dynamicRouteInfo" class="status-text">Waiting for user-defined outage...</div>
+    <button onclick="clearDynamicRoute()">Clear Dynamic Route</button>
+</div>
+
+<div class="north-arrow">
+    <div class="compass-container">
+        <div class="compass-label">N</div>
+        <div class="compass-arrows">
+            <div class="compass-north"></div>
+            <div class="compass-south"></div>
+        </div>
+    </div>
+</div>
+
+<div class="scale-bar-container">
+    <div class="scale-title">Scale</div>
+    <div class="scale-graphic"></div>
+    <div class="scale-text" id="scaleText">0 km</div>
 </div>
 
 <div class="legend">
     <div class="legend-title">Map Legend</div>
-    <div><span class="legend-symbol" style="background:#0D47A1;"></span>Utility Depot</div>
-    <div><span class="legend-symbol" style="background:#E65100; border-radius:50%;"></span>Outage Event</div>
-    <div><span class="legend-symbol" style="background:#1565C0;"></span>Response Route</div>
-    <div><span class="legend-symbol" style="background:#90CAF9;"></span>Service Area</div>
-    <div><span class="legend-symbol" style="background:#BDBDBD;"></span>Road Network</div>
+    
+    <div class="legend-section">
+        <div class="legend-section-title">Map Layers</div>
+        <div class="legend-item"><span class="legend-symbol" style="background:#0D47A1;"></span>Utility Depot</div>
+        <div class="legend-item"><span class="legend-symbol" style="background:#E65100; border-radius:50%;"></span>Existing Outage</div>
+        <div class="legend-item"><span class="legend-symbol" style="background:#1565C0;"></span>Precomputed Route</div>
+        <div class="legend-item"><span class="legend-symbol" style="background:#90CAF9;"></span>Service Area</div>
+    </div>
+
+    <div class="legend-section">
+        <div class="legend-section-title">Outage Severity</div>
+        <div class="legend-item"><span class="legend-symbol" style="background:#2E7D32; border-radius:50%;"></span>Low</div>
+        <div class="legend-item"><span class="legend-symbol" style="background:#FBC02D; border-radius:50%;"></span>Medium</div>
+        <div class="legend-item"><span class="legend-symbol" style="background:#F57C00; border-radius:50%;"></span>High</div>
+        <div class="legend-item"><span class="legend-symbol" style="background:#C62828; border-radius:50%;"></span>Critical</div>
+    </div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<div id="warningMessage" class="warning-message">⚠️ Click location is outside Washington DC service area</div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
     const map = L.map('map').setView([38.9072, -77.0369], 11);
 
-    const baseMap = L.tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        {
-            maxZoom: 19,
-            attribution: '&copy; OpenStreetMap contributors'
-        }
-    ).addTo(map);
-
-    const roadsLayer = L.geoJSON(null, {
-        style: {
-            color: '#BDBDBD',
-            weight: 0.6,
-            opacity: 0.55
-        }
-    });
-
-    const serviceAreasLayer = L.geoJSON(null, {
-        style: {
-            color: '#1565C0',
-            weight: 2,
-            fillColor: '#90CAF9',
-            fillOpacity: 0.25
-        }
-    });
-
-    const routesLayer = L.geoJSON(null, {
-        style: {
-            color: '#1565C0',
-            weight: 4,
-            opacity: 0.9
-        },
-        onEachFeature: function(feature, layer) {
-            const props = feature.properties;
-            layer.bindPopup(
-                '<b>Emergency Response Route</b><br>' +
-                'Outage ID: ' + props.outage_id + '<br>' +
-                'Assigned Depot: ' + props.assigned_depot + '<br>' +
-                'Route Distance: ' + Math.round(props.route_distance_meters / 100) / 10 + ' km'
-            );
-        }
-    });
-
-    const depotsLayer = L.geoJSON(null, {
-        pointToLayer: function(feature, latlng) {
-            return L.circleMarker(latlng, {
-                radius: 8,
-                fillColor: '#0D47A1',
-                color: 'white',
-                weight: 1,
-                fillOpacity: 0.95
-            });
-        },
-        onEachFeature: function(feature, layer) {
-            const props = feature.properties;
-            layer.bindPopup(
-                '<b>Utility Depot</b><br>' +
-                'Depot ID: ' + props.depot_id + '<br>' +
-                'Depot Name: ' + props.depot_name
-            );
-        }
-    });
-
-    const outagesLayer = L.geoJSON(null, {
-        pointToLayer: function(feature, latlng) {
-            return L.circleMarker(latlng, {
-                radius: 7,
-                fillColor: '#E65100',
-                color: 'white',
-                weight: 1,
-                opacity: 1,
-                fillOpacity: 0.95
-            });
-        },
-        onEachFeature: function(feature, layer) {
-            const props = feature.properties;
-            layer.bindPopup(
-                '<b>Utility Outage</b><br>' +
-                'Outage ID: ' + props.outage_id + '<br>' +
-                'Priority: ' + props.priority_level + '<br>' +
-                'Affected Customers: ' + props.affected_customers
-            );
-        }
-    });
-
-    Promise.all([
-        fetch('data/roads.geojson').then(r => r.json()),
-        fetch('data/utility_service_areas.geojson').then(r => r.json()),
-        fetch('data/emergency_response_routes.geojson').then(r => r.json()),
-        fetch('data/utility_depots.geojson').then(r => r.json()),
-        fetch('data/utility_outages.geojson').then(r => r.json())
-    ])
-    .then(([roadsData, serviceAreasData, routesData, depotsData, outagesData]) => {
-
-        roadsLayer.addData(roadsData);
-        serviceAreasLayer.addData(serviceAreasData);
-        routesLayer.addData(routesData);
-        depotsLayer.addData(depotsData);
-        outagesLayer.addData(outagesData);
-
-        serviceAreasLayer.addTo(map);
-        roadsLayer.addTo(map);
-        routesLayer.addTo(map);
-        depotsLayer.addTo(map);
-        outagesLayer.addTo(map);
-
-        const operationalGroup = L.featureGroup([
-            roadsLayer,
-            serviceAreasLayer,
-            routesLayer,
-            depotsLayer,
-            outagesLayer
-        ]);
-
-        map.fitBounds(
-            operationalGroup.getBounds(),
-            {
-                padding: [40, 40]
-            }
+    function updateScaleBar() {
+        const y = map.getSize().y / 2;
+        const maxMeters = map.distance(
+            map.containerPointToLatLng([0, y]),
+            map.containerPointToLatLng([100, y])
         );
-    });
+        const km = maxMeters / 1000;
+        const scaleText = km >= 1 ? `${km.toFixed(1)} km` : `${maxMeters.toFixed(0)} m`;
+        document.getElementById('scaleText').textContent = scaleText;
+    }
 
-    const overlayMaps = {
-        "Service Coverage Areas": serviceAreasLayer,
-        "Road Network": roadsLayer,
-        "Emergency Response Routes": routesLayer,
-        "Utility Depots": depotsLayer,
-        "Outage Events": outagesLayer
+    map.on('zoomend', updateScaleBar);
+    setTimeout(updateScaleBar, 100);
+
+    const dcBounds = { 
+        north: 38.9959,
+        south: 38.7916,
+        east: -76.9094,
+        west: -77.1197
     };
 
-    L.control.layers(
-        {"OpenStreetMap": baseMap},
-        overlayMaps,
-        {collapsed: false}
-    ).addTo(map);
-</script>
+    const baseMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
 
+    const severityStyles = {
+        Low: { color: '#2E7D32' },
+        Medium: { color: '#FBC02D' },
+        High: { color: '#F57C00' },
+        Critical: { color: '#C62828' }
+    };
+
+    function isInDC(lat, lng) {
+        return lat >= dcBounds.south && lat <= dcBounds.north && lng >= dcBounds.west && lng <= dcBounds.east;
+    }
+
+    function dcBoundsFilter(feature) {
+        const coords = feature.geometry.coordinates;
+        
+        if (feature.geometry.type === 'Point') {
+            return isInDC(coords[1], coords[0]);
+        } else if (feature.geometry.type === 'LineString' || feature.geometry.type === 'MultiLineString') {
+            const points = feature.geometry.type === 'LineString' ? coords : coords.flat();
+            return points.some(point => isInDC(point[1], point[0]));
+        } else if (feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon') {
+            const points = feature.geometry.type === 'Polygon' ? coords[0] : coords.flat().flat();
+            return points.some(point => isInDC(point[1], point[0]));
+        }
+        return true;
+    }
+
+    const roadsLayer = L.geoJSON(null, { 
+        style: { color: '#BDBDBD', weight: 0.6, opacity: 0.45 },
+        filter: dcBoundsFilter 
+    });
+    
+    const serviceAreasLayer = L.geoJSON(null, { 
+        style: { color: '#1565C0', weight: 2, fillColor: '#90CAF9', fillOpacity: 0.22 },
+        filter: dcBoundsFilter 
+    });
+    
+    const routesLayer = L.geoJSON(null, {
+        style: { color: '#1565C0', weight: 4, opacity: 0.9 },
+        filter: dcBoundsFilter,
+        onEachFeature: (feature, layer) => {
+            layer.bindPopup('<b>Precomputed Emergency Response Route</b><br>Outage ID: ' + feature.properties.outage_id + '<br>Assigned Depot: ' + feature.properties.assigned_depot + '<br>Route Distance: ' + Math.round(feature.properties.route_distance_meters / 100) / 10 + ' km');
+        }
+    });
+    
+    const depotsLayer = L.geoJSON(null, {
+        filter: dcBoundsFilter,
+        pointToLayer: (feature, latlng) => L.circleMarker(latlng, { radius: 8, fillColor: '#0D47A1', color: 'white', weight: 1, fillOpacity: 0.95 }),
+        onEachFeature: (feature, layer) => {
+            layer.bindPopup('<b>Utility Depot</b><br>Depot ID: ' + feature.properties.depot_id + '<br>Depot Name: ' + feature.properties.depot_name);
+        }
+    });
+    
+    const outagesLayer = L.geoJSON(null, {
+        filter: dcBoundsFilter,
+        pointToLayer: (feature, latlng) => L.circleMarker(latlng, { radius: 7, fillColor: '#E65100', color: 'white', weight: 1, opacity: 1, fillOpacity: 0.95 }),
+        onEachFeature: (feature, layer) => {
+            layer.bindPopup('<b>Simulated Utility Outage</b><br>Outage ID: ' + feature.properties.outage_id + '<br>Priority: ' + feature.properties.priority_level + '<br>Affected Customers: ' + feature.properties.affected_customers);
+        }
+    });
+
+    const userOutageLayer = L.layerGroup().addTo(map);
+    const userRouteLayer = L.layerGroup().addTo(map);
+    let depotFeatures = [];
+
+    function getSelectedSeverity() { return document.getElementById('severitySelect').value; }
+    function getSeverityColor(severity) { return severityStyles[severity].color; }
+    function updateInfoPanel(message) { document.getElementById('dynamicRouteInfo').innerHTML = message; }
+    
+    function clearDynamicRoute() {
+        userOutageLayer.clearLayers();
+        userRouteLayer.clearLayers();
+        updateInfoPanel('Waiting for user-defined outage...');
+    }
+    
+    function showWarning(message) {
+        const warningDiv = document.getElementById('warningMessage');
+        warningDiv.textContent = message;
+        warningDiv.classList.remove('show');
+        void warningDiv.offsetWidth;
+        warningDiv.classList.add('show');
+        setTimeout(() => warningDiv.classList.remove('show'), 3000);
+    }
+    
+    function findNearestDepot(clickedLatLng) {
+        if (depotFeatures.length === 0) {
+            return { 
+                feature: { properties: { depot_name: 'Central Utility Depot' } }, 
+                latlng: L.latLng(38.9072, -77.0369), 
+                distance: map.distance(clickedLatLng, L.latLng(38.9072, -77.0369)) 
+            };
+        }
+        let nearestDepot = null, nearestDistance = Infinity;
+        depotFeatures.forEach(feature => {
+            const coords = feature.geometry.coordinates;
+            const depotLatLng = L.latLng(coords[1], coords[0]);
+            const distance = map.distance(clickedLatLng, depotLatLng);
+            if (distance < nearestDistance) {
+                nearestDistance = distance;
+                nearestDepot = { feature, latlng: depotLatLng, distance };
+            }
+        });
+        return nearestDepot;
+    }
+
+    function requestDynamicRoute(depotLatLng, outageLatLng, depotName, severity) {
+        const severityColor = getSeverityColor(severity);
+        const osrmUrl = `https://router.project-osrm.org/route/v1/driving/${depotLatLng.lng},${depotLatLng.lat};${outageLatLng.lng},${outageLatLng.lat}?overview=full&geometries=geojson`;
+        updateInfoPanel('Routing request submitted...');
+        
+        fetch(osrmUrl)
+            .then(r => r.json())
+            .then(data => {
+                if (!data.routes || data.routes.length === 0) {
+                    updateInfoPanel('No route found.');
+                    return;
+                }
+                const route = data.routes[0];
+                L.geoJSON({ type: 'Feature', geometry: route.geometry }, {
+                    style: { color: severityColor, weight: severity === 'Critical' ? 6 : 5, opacity: 0.95 }
+                }).bindPopup(`<b>User-Defined Route</b><br>Severity: ${severity}<br>Depot: ${depotName}<br>Distance: ${(route.distance / 1000).toFixed(2)} km<br>Time: ${Math.round(route.duration / 60)} min`).addTo(userRouteLayer);
+                
+                updateInfoPanel(`<b>Severity:</b> ${severity}<br><b>Depot:</b> ${depotName}<br><b>Distance:</b> ${(route.distance / 1000).toFixed(2)} km<br><b>Time:</b> ${Math.round(route.duration / 60)} min`);
+            })
+            .catch(() => {
+                updateInfoPanel('Routing service unavailable.');
+            });
+    }
+
+    function handleUserOutageClick(event) {
+        if (!isInDC(event.latlng.lat, event.latlng.lng)) {
+            showWarning('⚠️ Click location is outside Washington DC service area');
+            return;
+        }
+        
+        const severity = getSelectedSeverity();
+        clearDynamicRoute();
+        
+        const nearestDepot = findNearestDepot(event.latlng);
+        const depotName = nearestDepot.feature.properties.depot_name;
+        
+        L.circleMarker(event.latlng, {
+            radius: severity === 'Critical' ? 10 : 8,
+            fillColor: getSeverityColor(severity),
+            color: 'white',
+            weight: 2,
+            fillOpacity: 1
+        }).bindPopup(`<b>User-Defined Outage</b><br>Severity: ${severity}<br>Depot: ${depotName}`).addTo(userOutageLayer).openPopup();
+        
+        requestDynamicRoute(nearestDepot.latlng, event.latlng, depotName, severity);
+    }
+
+    Promise.all([
+        fetch('data/roads.geojson').then(r => r.ok ? r.json() : null).catch(() => null),
+        fetch('data/utility_service_areas.geojson').then(r => r.ok ? r.json() : null).catch(() => null),
+        fetch('data/emergency_response_routes.geojson').then(r => r.ok ? r.json() : null).catch(() => null),
+        fetch('data/utility_depots.geojson').then(r => r.ok ? r.json() : null).catch(() => null),
+        fetch('data/utility_outages.geojson').then(r => r.ok ? r.json() : null).catch(() => null)
+    ]).then(([roadsData, serviceAreasData, routesData, depotsData, outagesData]) => {
+        if (depotsData) depotFeatures = depotsData.features.filter(dcBoundsFilter);
+        if (roadsData) roadsLayer.addData(roadsData);
+        if (serviceAreasData) serviceAreasLayer.addData(serviceAreasData);
+        if (routesData) routesLayer.addData(routesData);
+        if (depotsData) depotsLayer.addData(depotsData);
+        if (outagesData) outagesLayer.addData(outagesData);
+        
+        [serviceAreasLayer, roadsLayer, routesLayer, depotsLayer, outagesLayer].forEach(l => l.addTo(map));
+        map.on('click', handleUserOutageClick);
+    });
+
+    L.control.layers({"OpenStreetMap": baseMap}, {
+        "Service Coverage Areas": serviceAreasLayer,
+        "Road Network": roadsLayer,
+        "Precomputed Emergency Routes": routesLayer,
+        "Utility Depots": depotsLayer,
+        "Simulated Outage Events": outagesLayer,
+        "User-Defined Outage": userOutageLayer,
+        "User-Defined Route": userRouteLayer
+    }, {collapsed: false}).addTo(map);
+</script>
 </body>
 </html>
