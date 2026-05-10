@@ -35,6 +35,11 @@ The interactive application includes:
   <li>Emergency response routing</li>
   <li>Service coverage visualization</li>
   <li>Layer controls and operational GIS interface</li>
+  <li><strong>Click-to-create dynamic outage simulation</strong></li>
+  <li><strong>Real-time OSRM routing with distance and time calculations</strong></li>
+  <li><strong>Severity-based routing (Low, Medium, High, Critical)</strong></li>
+  <li><strong>DC boundary validation with warning messages</strong></li>
+  <li><strong>Professional cartography (north arrow, scale bar)</strong></li>
 </ul>
 
 <p>
@@ -127,7 +132,7 @@ The project combines:
 
   <tr>
     <td>Routing Engine</td>
-    <td>NetworkX</td>
+    <td>NetworkX, OSRM</td>
   </tr>
 
   <tr>
